@@ -1,12 +1,64 @@
 h1 {
 	color:  black;
-	font-size:  150%;
+	font-size:  200%;
+	font-family: courier;
+	text-align: center;
 }
-body{
-	color: gray;
-	font-size: 18px;
-	font-type: Georgia;
+h2{
+	color: rebeccapurple;
+	font-family: verdana;
+
+}
+
+div{
+	display:  inline-block;
+	width: 100%;
+	border:  1px solid rgb(0,0,0,0.5);
+	margin: 0px 0px 0px 0px;
+}
+
+
+img {
+	align-content: center;
 }
 p {
-	color: green;
+	color:  black;
+	font-size: 18px;
+	font-family: Monaco;
+	padding:  20px;
 }
+
+body{
+	background-color: ghostwhite;
+}
+
+a:link{
+	color: blue;
+	text-decoration: none
+	background-color: transparent;
+}
+a:hover{
+	color: red;
+	text-decoration: underline;
+	background-color: transparent;
+}
+a:active{
+	color: purple;
+	text-decoration: underline;
+	background-color: transparent;
+}
+a:active{
+	color: purple;
+	text-decoration: underline;
+	background-color: transparent;
+}
+a:visited{
+	color: purple;
+	text-decoration: none;
+	background-color: transparent;
+}
+
+
+
+
+
