@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
+	<title>Page Two</title>
 	<link rel="stylesheet" type="text/css" href="./style.css">
-	<title>Other Page</title>
 </head>
-<body>
-<h1>Welcome to our other page</h1>
-<p>We talk about other stuff here</p>
+
+<body id="snowing">
+	<h1>Welcome to our other page</h1>
+	<p>We talk about other stuff here. Hello</p>
+	<p>To go back to page one, click <a href="./index.html">here</a>.</p>
+	<p>Go to JavaScript testing site <a href="./javascript_test.html">here</a>.</p>
+
+	<button type='button' onclick="myFunction('mountain')">change to mountains</button>
+	<button type='button' onclick="myFunction('snowing')">change to snowing forest</button>
+	<button type='button' onclick="myFunction('future_city')">change to futuristic city</button>
+	<button type='button' onclick="myFunction('desert')">change to desert</button>
+	<button type='button' onclick="myFunction('city')">change to city</button>
+	<button type='button' onclick="myFunction('boat_city')">change to a boat city</button>
+
+	<p id='testp'>city landscape</p>
+	<img src="./photos/gifs/city.gif" id='testimg' style="width:20%;">
+	<br>
+	<script type="text/javascript" src="myScript.js"></script>
+
 </body>
+
 </html>
+
