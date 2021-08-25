@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Website</title>
+    <link rel="stylesheet" href="./app/scss/style.css">
+</head>
+<body>
+    <h1>Various Forms</h1>
+    <p>I'm going to be playing around with various forms.</p>
+    <form>
+        <label for="testName">First Field:</label>
+            <input type="text" id = "testName" name="testName" placeholder="Some Placeholder">
+        <hr>
+        <input type="checkbox" name="isCool" value='true'> Are you cool?
+        <hr>
+        <select name="city">
+            <option value="london">London</option>
+            <option value="New York">New York</option>
+            <option value="Seattle">Seattle</option>
+        </select>
+        <hr>
+        <input type="radio" name='gender' value='male'/>Male<br/>
+        <input type="radio" name='gender' value='female'/>Female
+        <hr>
+        <label for="describeSelf">Message:</label><br/>
+            <input type="text" id = "describeSelf" name = "textBox" placeholder="Some text"/> 
+
+            <input type="text" id = "newName" name = "newName" placeholder="Some other text"/>
+
+        <hr>
+        <textarea name="messageArea" id="message" cols="40" rows="10">Enter text</textarea>
+        
+
+    </form>
+</body>
+</html>
