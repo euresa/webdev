@@ -1,0 +1,20 @@
+{
+  "name": "bestblackjeans",
+  "version": "1.0.0",
+  "description": "Bestblackjeans website source",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/euresa/webdev.git"
+  },
+  "author": "Sam Eure",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/euresa/webdev/issues"
+  },
+  "homepage": "https://github.com/euresa/webdev#readme"
+}
+ 

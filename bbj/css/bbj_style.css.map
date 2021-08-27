@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAQA,AAAA,IAAI,CAAC;EAMD,UAAU,EAdK,wBAAwB;CAmB1C;;AAXD,AACI,IADA,CACA,MAAM,CAAA;EACF,UAAU,EAAE,MAAM;EAClB,KAAK,EAAC,KAAK;EACX,SAAS,EAAE,IAAI;CAClB;;AALL,AAOI,IAPA,CAOA,CAAC,CAAC;EAZF,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,MAAM;EACnB,KAAK,EAAE,KAAK;EAWR,SAAS,EAAE,IAAI;CAClB",
+    "sources": [
+        "bbj_style.scss"
+    ],
+    "names": [],
+    "file": "bbj_style.css"
+}

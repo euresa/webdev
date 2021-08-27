@@ -1,0 +1,20 @@
+$backgroundColor : rgba(16, 19, 216, 0.525);
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+body {
+    header{
+        text-align: center;
+        color:white;
+        font-size: 32px;
+    }
+    background: $backgroundColor;
+    p {
+        @include flexCenter();
+        font-size: 24px;
+    }
+}
