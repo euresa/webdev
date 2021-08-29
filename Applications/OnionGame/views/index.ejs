@@ -1,21 +1,3 @@
-<!--
-
-<div class='container-fluid'>
-    <div class = 'flex center col-sm-6 p-4'>
-        <h1>Home Page</h1>
-    </div>
-    <div class = 'flex center col-sm-6 p-4'>
-
-        <% for(var i=0; i<articles.length; i++){%>
-            <%var currentArticle = articles[i];%> 
-            title: <%= currentArticle.title%><br>
-            real: <%= currentArticle.real%><br>
-            <hr>
-        <%};%>
-
-</div>
-</div>
--->
 
 <!-- START OF TEMPLATE FRONT_END -->
 <!DOCTYPE html>
@@ -153,7 +135,7 @@
   
   .card h3 {
     margin-top: 32px;
-    font-size: 28px;
+    font-size: 24px;
     padding: 0 16px;
     pointer-events: none;
   }
@@ -168,8 +150,9 @@
   .buttons {
     flex: 0 0 100px;
     text-align: center;
-    padding-top: 0px;
-    margin-bottom: 60px;
+    align-content: center;
+    top: 50%;
+    left: 50%;
   }
   
   .buttons button {
@@ -236,8 +219,6 @@
                     <br><br>
                     <hr>
                 </header>
-
-
             </div>
         </div>
         <div class='row'>
@@ -257,16 +238,30 @@
                     <i class="fa fa-heart"></i>
                 </div>
 
+
                 <div class="cardStack">
 
+
+                    <%function shuffle(array) {  %>
+                    <%    for (let i = array.length - 1; i > 0; i--) {  %>
+                    <%        let j = Math.floor(Math.random() * (i + 1));  %>
+                    <%        [array[i], array[j]] = [array[j], array[i]];  %>
+                    <%    }  %>
+                    <%        return array;  %>
+                    <%};%>
+
+                    <% function getIndexArray(N) {var indexArray = new Array(N);for (var i = 0; i < N; i++){indexArray[i]=i;}return indexArray;} %>
+
                     <% let cardThemes = ['arch', 'tech',  'nature', 'people']; %>
-                    <% const numberOfCardsToShow = 25;%>
-                    <% for(var i=0; i<articles.length; i++){%>
-                        <%var currentArticle=articles[i];%>
+                    <% var N = articles.length %>
+                    <% var shuffledIndicies = shuffle(getIndexArray(N))%>
+                   
+                    <% for(var i=0; i<N; i++){%>
+                        <%var currentArticle=articles[shuffledIndicies[i]];%>
                         <div class="card">
                             <img src = <%=`https://placeimg.com/600/300/${cardThemes[i%cardThemes.length]}`%> >
                             <h3><%= currentArticle.title%></h3>
-                            <p></p>
+                            <p style="display:none"><%= currentArticle.real%></p>
                         </div>
                     <%};%>
 
@@ -274,6 +269,7 @@
                 <div class="buttons">
                     <button id="onion">ONION</button>
                     <button id="real">REAL</button>
+                    
                 </div>
                 <div id = "accuracy">Accuracy: 0%</div>
             </div>
@@ -283,112 +279,139 @@
     </div>
 
     <script>
-        'use strict';
-            var correctCount = 0;
-            var cardsDrawn = 0;
+    'use strict';
+        // Sam's functions
 
-            var slidecardContainer = document.querySelector('.slidecardContainer');
-            var allCards = document.querySelectorAll('.card');
-            var onion = document.getElementById('onion');
-            var real = document.getElementById('real');
+        function updateAccuracy(correct) {
+            cardsDrawn += 1;
+            correctCount += correct;
+            accuracy.innerHTML = `Accuracy: ${Math.round(100 * correctCount / cardsDrawn)}%`;
+        }
 
-            function initCards(card, index) {
-                var newCards = document.querySelectorAll('.card:not(.removed)');
+        function getCardLabel(card) {
+            let cardContents = card.innerHTML;
+            let startSubstring = '<p style="display:none">';
+            let endSubstring = '</p>';
+            var cardLabel = cardContents.substring(
+                cardContents.indexOf(startSubstring) + startSubstring.length,
+                cardContents.indexOf(endSubstring)
+            )
+            return cardLabel;
+        }
 
-                newCards.forEach(function (card, index) {
-                    const totalCards = allCards.length;
-                    card.style.zIndex = totalCards - index;
-                    card.style.transform = 'scale(' + (totalCards - index) / totalCards + ') translateY(-' + 300 * (index-1)/totalCards + 'px)';
-                    card.style.opacity = ((totalCards - index) / totalCards)**2;
-                });
-                slidecardContainer.classList.add('loaded');
-            }
+        var accuracy = document.getElementById("accuracy");
+        var correctCount = 0;
+        var cardsDrawn = 0;
+        var slidecardContainer = document.querySelector('.slidecardContainer');
+        var allCards = document.querySelectorAll('.card');
+        var onion = document.getElementById('onion');
+        var real = document.getElementById('real');
 
-            initCards();
+        function initCards(card, index) {
+            var newCards = document.querySelectorAll('.card:not(.removed)');
+            let totalCards = allCards.length;
+            newCards.forEach(function (card, index) {
+                card.style.zIndex = totalCards - index;
+                card.style.transform = 'scale(' + (totalCards - index) / totalCards + ') translateY(-' + 300 * (index - 1) / totalCards + 'px)';
+                card.style.opacity = ((totalCards - index) / totalCards) ** 2;
+            });
 
-            allCards.forEach(function (el) {
-                var hammertime = new Hammer(el);
-                var accuracy = document.getElementById("accuracy");
+            slidecardContainer.classList.add('loaded');
+        }
 
-                hammertime.on('pan', function (event) {
-                    el.classList.add('moving');
-                });
+        initCards();
 
-                hammertime.on('pan', function (event) {
-                    if (event.deltaX === 0) {
-                        return;
-                    } else {
-                        cardsDrawn += 1;
-                        correctCount += event.deltaX > 0 ? 1 : 0; 
-                        accuracy.innerHTML = `Accuracy: ${Math.round(100*correctCount/cardsDrawn)}%`;
-                    }
-                    if (event.center.x === 0 && event.center.y === 0) return;
+        allCards.forEach(function (card) {
+            var hammertime = new Hammer(card);
+            
+            hammertime.on('pan', function (event) {
+                card.classList.add('moving');
+            });
 
-                    slidecardContainer.classList.toggle('real', event.deltaX > 0);
-                    slidecardContainer.classList.toggle('onion', event.deltaX < 0);
+            hammertime.on('pan', function (event) {
+                if (event.deltaX === 0) return;
+                if (event.center.x === 0 && event.center.y === 0) return;
+                
+                slidecardContainer.classList.toggle('real', event.deltaX > 0);
+                slidecardContainer.classList.toggle('onion', event.deltaX < 0);
 
+                var xMulti = event.deltaX * 0.03;
+                var yMulti = event.deltaY / 80;
+                var rotate = xMulti * yMulti;
+
+                event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
+            });
+
+            hammertime.on('panend', function (event) {
+                card.classList.remove('moving');
+                slidecardContainer.classList.remove('real');
+                slidecardContainer.classList.remove('onion');
+
+                var moveOutWidth = document.body.clientWidth;
+                var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+
+                event.target.classList.toggle('removed', !keep);
+
+
+                if (keep) {
+                    event.target.style.transform = '';
+                } else {
+                    var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
+                    var toX = event.deltaX > 0 ? endX : -endX;
+                    var endY = Math.abs(event.velocityY) * moveOutWidth;
+                    var toY = event.deltaY > 0 ? endY : -endY;
                     var xMulti = event.deltaX * 0.03;
                     var yMulti = event.deltaY / 80;
                     var rotate = xMulti * yMulti;
-
-                    event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
-                });
-
-                hammertime.on('panend', function (event) {
-                    el.classList.remove('moving');
-                    slidecardContainer.classList.remove('real');
-                    slidecardContainer.classList.remove('onion');
-
-                    var moveOutWidth = document.body.clientWidth;
-                    var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
-
-                    event.target.classList.toggle('removed', !keep);
-
-                    if (keep) {
-                        event.target.style.transform = '';
-                    } else {
-                        var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
-                        var toX = event.deltaX > 0 ? endX : -endX;
-                        var endY = Math.abs(event.velocityY) * moveOutWidth;
-                        var toY = event.deltaY > 0 ? endY : -endY;
-                        var xMulti = event.deltaX * 0.03;
-                        var yMulti = event.deltaY / 80;
-                        var rotate = xMulti * yMulti;
-
-                        event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
-                        initCards();
-                    }
-                });
-            });
-
-            function createButtonListener(real) {
-                return function (event) {
-                    var cards = document.querySelectorAll('.card:not(.removed)');
-                    var moveOutWidth = document.body.clientWidth * 1.5;
-
-                    if (!cards.length) return false;
-
-                    var card = cards[0];
-
-                    card.classList.add('removed');
-
-                    if (real) {
-                        card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
-                    } else {
-                        card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
-                    }
-
+                    
+                    var playerVotedReal = event.deltaX > 0 ? 1 : 0;
+                    var cardLabel = getCardLabel(card);
+                    var labelWasReal = cardLabel === 'yes';
+                    var correctChoice = labelWasReal == playerVotedReal;
+                    updateAccuracy(correctChoice);
+          
+                    
+                    event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
                     initCards();
+                }
+                
+            });
+        });
 
-                    event.preventDefault();
-                };
-            }
+        function createButtonListener(real) {
+            return function (event) {
+                
+                var cards = document.querySelectorAll('.card:not(.removed)');
+                var moveOutWidth = document.body.clientWidth * 1.5;
 
-            var onionListener = createButtonListener(false);
-            var realListener = createButtonListener(true);
+                if (!cards.length) return false;
 
-            onion.addEventListener('click', onionListener);
-            real.addEventListener('click', realListener);
+                var card = cards[0];
+                var cardLabel = getCardLabel(card);
+                var labelWasReal = cardLabel === 'yes';
+                var correctChoice = labelWasReal == real;
+
+                updateAccuracy(correctChoice);
+
+                card.classList.add('removed');
+
+                if (real) {
+                    card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
+                } else {
+                    card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
+                }
+
+                initCards();
+
+                event.preventDefault();
+            };
+        }
+
+        var onionListener = createButtonListener(false);
+        var realListener = createButtonListener(true);
+
+        onion.addEventListener('click', onionListener);
+        real.addEventListener('click', realListener);
 
     </script>
 </body>
