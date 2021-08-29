@@ -29,8 +29,7 @@
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../public/css/slide.css">
-    <style>
-    </style>
+
 </head>
 <body>
 
@@ -103,12 +102,12 @@
     margin-left: -50px;
   }
   
-  .tinder_love .fa-heart {
+  .tinder_real .fa-heart {
     opacity: 0.7;
     transform: scale(1);
   }
   
-  .tinder_nope .fa-remove {
+  .tinder_onion .fa-remove {
     opacity: 0.7;
     transform: scale(1);
   }
@@ -170,7 +169,7 @@
     flex: 0 0 100px;
     text-align: center;
     padding-top: 0px;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
   }
   
   .buttons button {
@@ -184,12 +183,12 @@
     margin: 0 15px;
   }
   
-  #nope {
+  #onion {
     color: white;
     background-color: darkgreen;
   }
 
-  #love {
+  #real {
     color: white;
     background-color: darkred;
   }
@@ -209,6 +208,10 @@
   
   .fa-remove {
     color: #CDD6DD;
+  }
+
+  .card.removed{
+      display: none;
   }
 
   /* tinder buttons 
@@ -256,8 +259,8 @@
 
                 <div class="cardStack">
 
-
                     <% let cardThemes = ['arch', 'tech',  'nature', 'people']; %>
+                    <% const numberOfCardsToShow = 25;%>
                     <% for(var i=0; i<articles.length; i++){%>
                         <%var currentArticle=articles[i];%>
                         <div class="card">
@@ -267,13 +270,12 @@
                         </div>
                     <%};%>
 
-
-
                 </div>
                 <div class="buttons">
-                    <button id="nope">ONION</button>
-                    <button id="love">NOT</button>
+                    <button id="onion">ONION</button>
+                    <button id="real">REAL</button>
                 </div>
+                <div id = "accuracy">Accuracy: 0%</div>
             </div>
         </div>
     </div>
@@ -282,21 +284,23 @@
 
     <script>
         'use strict';
+            var correctCount = 0;
+            var cardsDrawn = 0;
 
             var slidecardContainer = document.querySelector('.slidecardContainer');
             var allCards = document.querySelectorAll('.card');
-            var nope = document.getElementById('nope');
-            var love = document.getElementById('love');
+            var onion = document.getElementById('onion');
+            var real = document.getElementById('real');
 
             function initCards(card, index) {
                 var newCards = document.querySelectorAll('.card:not(.removed)');
 
                 newCards.forEach(function (card, index) {
-                    card.style.zIndex = allCards.length - index;
-                    card.style.transform = 'scale(' + (15 - index) / 15 + ') translateY(-' + 30 * index + 'px)';
-                    card.style.opacity = (10 - index) / 10;
+                    const totalCards = allCards.length;
+                    card.style.zIndex = totalCards - index;
+                    card.style.transform = 'scale(' + (totalCards - index) / totalCards + ') translateY(-' + 300 * (index-1)/totalCards + 'px)';
+                    card.style.opacity = ((totalCards - index) / totalCards)**2;
                 });
-
                 slidecardContainer.classList.add('loaded');
             }
 
@@ -304,17 +308,24 @@
 
             allCards.forEach(function (el) {
                 var hammertime = new Hammer(el);
+                var accuracy = document.getElementById("accuracy");
 
                 hammertime.on('pan', function (event) {
                     el.classList.add('moving');
                 });
 
                 hammertime.on('pan', function (event) {
-                    if (event.deltaX === 0) return;
+                    if (event.deltaX === 0) {
+                        return;
+                    } else {
+                        cardsDrawn += 1;
+                        correctCount += event.deltaX > 0 ? 1 : 0; 
+                        accuracy.innerHTML = `Accuracy: ${Math.round(100*correctCount/cardsDrawn)}%`;
+                    }
                     if (event.center.x === 0 && event.center.y === 0) return;
 
-                    slidecardContainer.classList.toggle('love', event.deltaX > 0);
-                    slidecardContainer.classList.toggle('nope', event.deltaX < 0);
+                    slidecardContainer.classList.toggle('real', event.deltaX > 0);
+                    slidecardContainer.classList.toggle('onion', event.deltaX < 0);
 
                     var xMulti = event.deltaX * 0.03;
                     var yMulti = event.deltaY / 80;
@@ -325,8 +336,8 @@
 
                 hammertime.on('panend', function (event) {
                     el.classList.remove('moving');
-                    slidecardContainer.classList.remove('love');
-                    slidecardContainer.classList.remove('nope');
+                    slidecardContainer.classList.remove('real');
+                    slidecardContainer.classList.remove('onion');
 
                     var moveOutWidth = document.body.clientWidth;
                     var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
@@ -350,7 +361,7 @@
                 });
             });
 
-            function createButtonListener(love) {
+            function createButtonListener(real) {
                 return function (event) {
                     var cards = document.querySelectorAll('.card:not(.removed)');
                     var moveOutWidth = document.body.clientWidth * 1.5;
@@ -361,7 +372,7 @@
 
                     card.classList.add('removed');
 
-                    if (love) {
+                    if (real) {
                         card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
                     } else {
                         card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
@@ -373,11 +384,11 @@
                 };
             }
 
-            var nopeListener = createButtonListener(false);
-            var loveListener = createButtonListener(true);
+            var onionListener = createButtonListener(false);
+            var realListener = createButtonListener(true);
 
-            nope.addEventListener('click', nopeListener);
-            love.addEventListener('click', loveListener);
+            onion.addEventListener('click', onionListener);
+            real.addEventListener('click', realListener);
 
     </script>
 </body>
