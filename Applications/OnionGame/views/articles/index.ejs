@@ -1,0 +1,34 @@
+<div class='container-flex'>
+    <div class='row center text-center'>
+    <h2 class = "col-md-3 p-2 m-2">Articles table</h2>
+    <div class='col-md-3 text-center center p-2 m-2'>
+        <a class='btn btn-primary' href= "/articles/new">Add New Article</a>
+    </div>
+    </div>
+    <div class='row'>
+        <table class='table ml-4 mr-4'>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Real</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% articles.forEach(article => { %>
+                    <tr>
+                        <td>
+                            <%= article.title%> 
+                        </td>
+                        <td>
+                            <%= article.real %> 
+                        </td>
+                        <td>
+                            <a href="<%= `articles/${article._id}/delete?_method=DELETE` %> " onclick = "return confirm('Are you sure you want to delete this article?')" >Delete</a>
+                        </td>
+                    </tr>
+            <% }); %> 
+            </tbody>
+        </table>
+    </div>
+</div>

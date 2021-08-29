@@ -1,0 +1,402 @@
+<!--
+
+<div class='container-fluid'>
+    <div class = 'flex center col-sm-6 p-4'>
+        <h1>Home Page</h1>
+    </div>
+    <div class = 'flex center col-sm-6 p-4'>
+
+        <% for(var i=0; i<articles.length; i++){%>
+            <%var currentArticle = articles[i];%> 
+            title: <%= currentArticle.title%><br>
+            real: <%= currentArticle.real%><br>
+            <hr>
+        <%};%>
+
+</div>
+</div>
+-->
+
+<!-- START OF TEMPLATE FRONT_END -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onion Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../public/css/slide.css">
+
+</head>
+<body>
+
+    <style>
+        *, *:before, *:after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  .game-title {
+	    align-self: center;
+    }
+
+  body {
+    background:url("../images/news-background.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: sans-serif;
+  }
+
+  p {
+    padding: 0;
+    background:transparent;
+    font-size: 22px;
+  }
+
+  .contentBox {
+    align-content: center;
+    text-align: center;
+    margin: 32px auto;
+    width: 1000px;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid black;
+  }
+
+  .slidecardContainer {
+    width: 95vw; /* doesn't do anything */
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    position: relative; /*doesn't do anything */
+    opacity: 0; /*doesn't do anything */
+    transition: opacity 0.1s ease-in-out;
+    padding-top: 75px;
+  }
+  
+  .loaded.slidecardContainer {
+    opacity: 1;
+  }
+  
+  .tinder--status {
+    position: absolute; /*doesn't do anything */
+    top: 50%; /*doesn't do anything */
+    margin-top: -30px; /*doesn't do anything */
+    z-index: 2; /*doesn't do anything */
+    width: 100%; /*doesn't do anything */
+    text-align: center; /*doesn't do anything */
+    pointer-events: none; /*doesn't do anything */
+  }
+  
+  .tinder--status i {
+    font-size: 100px;
+    opacity: 0;
+    transform: scale(0.3);
+    transition: all 0.2s ease-in-out;
+    position: absolute;
+    width: 100px;
+    margin-left: -50px;
+  }
+  
+  .tinder_real .fa-heart {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  
+  .tinder_onion .fa-remove {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  
+  .cardStack {
+    flex-grow: 1;
+    text-align: center; /*doesn't do anything */
+    display: flex;
+    justify-content: center;
+ /*doesn't do anything */
+    z-index: 1; /*doesn't do anything */
+  }
+  
+  .card {
+    display: inline-block;
+    width: 90vw;
+    max-width: 300px;
+    height: 100vh;
+    max-height: 350px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    overflow: hidden;
+    position: absolute;
+    box-shadow: 0px 18px 53px 0px rgba(0, 0, 0, 0.3);
+    will-change: transform;
+    transition: all 0.3s ease-in-out;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+  }
+  
+  .moving.card {
+    transition: none;
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+  }
+  
+  .card img {
+    max-width: 100%;
+    pointer-events: none;
+  }
+  
+  .card h3 {
+    margin-top: 32px;
+    font-size: 28px;
+    padding: 0 16px;
+    pointer-events: none;
+  }
+  
+  .card p {
+    margin-top: 24px;
+    font-size: 20px;
+    padding: 0 16px;
+    pointer-events: none;
+  }
+  
+  .buttons {
+    flex: 0 0 100px;
+    text-align: center;
+    padding-top: 0px;
+    margin-bottom: 60px;
+  }
+  
+  .buttons button {
+    border-radius: 10%;
+    line-height: 60px;
+    width: 100px;
+    border: 0;
+    background: #FFFFFF;
+    box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    margin: 0 15px;
+  }
+  
+  #onion {
+    color: white;
+    background-color: darkgreen;
+  }
+
+  #real {
+    color: white;
+    background-color: darkred;
+  }
+
+  .buttons button:focus {
+    outline: 0;
+  }
+  
+  .buttons i {
+    font-size: 32px;
+    vertical-align: middle;
+  }
+  
+  .fa-heart {
+    color: #FFACE4;
+  }
+  
+  .fa-remove {
+    color: #CDD6DD;
+  }
+
+  .card.removed{
+      display: none;
+  }
+
+  /* tinder buttons 
+      border-radius: 50%;
+    line-height: 60px;
+    width: 60px;
+    border: 0;
+    background: #FFFFFF;
+    display: inline-block;
+    margin: 0 8px;
+    */
+  
+    </style>
+
+    <div class='container contentBox'>
+        <div class='row'>
+            <div class='col-lg-12'>
+                <header class="game-title">
+                    <br><br>
+                    <img src="https://fontmeme.com/permalink/210828/3928036407d0b874eded27ef242288f2.png"
+                        alt="slab-serif-fonts" border="0"></a>
+                    <br><br>
+                    <hr>
+                </header>
+
+
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-6 m-4 text-left'>
+                <p>Let's face it, the world is f*!$ing nuts. Has it always been this way? Who knows, but it certainly
+                    feels like it gets wackier everyday, especially if the news is anything to go by.<br><br> But,
+                    instead of spiraling into depression by overthinking it, we decided to make this game... <br><br>The
+                    premise is simple: we grab headlines from both the satirical online newspaper <i>The Onion</i> and
+                    newspapers around the world while you use your razor sharp reasoning skills to discern which
+                    headline is from which.<br><br>You have two options for moving though the card stack of
+                    headlines:<br> (1) Grab and swipe, or <br> (2) Press the buttons beneath the cards.<br><br>Let the
+                    fun begin!</p>
+            </div>
+            <div class="slidecardContainer col-md-5">
+                <div class="tinder--status">
+                    <i class="fa fa-remove"></i>
+                    <i class="fa fa-heart"></i>
+                </div>
+
+                <div class="cardStack">
+
+                    <% let cardThemes = ['arch', 'tech',  'nature', 'people']; %>
+                    <% const numberOfCardsToShow = 25;%>
+                    <% for(var i=0; i<articles.length; i++){%>
+                        <%var currentArticle=articles[i];%>
+                        <div class="card">
+                            <img src = <%=`https://placeimg.com/600/300/${cardThemes[i%cardThemes.length]}`%> >
+                            <h3><%= currentArticle.title%></h3>
+                            <p></p>
+                        </div>
+                    <%};%>
+
+                </div>
+                <div class="buttons">
+                    <button id="onion">ONION</button>
+                    <button id="real">REAL</button>
+                </div>
+                <div id = "accuracy">Accuracy: 0%</div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <script>
+        'use strict';
+            var correctCount = 0;
+            var cardsDrawn = 0;
+
+            var slidecardContainer = document.querySelector('.slidecardContainer');
+            var allCards = document.querySelectorAll('.card');
+            var onion = document.getElementById('onion');
+            var real = document.getElementById('real');
+
+            function initCards(card, index) {
+                var newCards = document.querySelectorAll('.card:not(.removed)');
+
+                newCards.forEach(function (card, index) {
+                    const totalCards = allCards.length;
+                    card.style.zIndex = totalCards - index;
+                    card.style.transform = 'scale(' + (totalCards - index) / totalCards + ') translateY(-' + 300 * (index-1)/totalCards + 'px)';
+                    card.style.opacity = ((totalCards - index) / totalCards)**2;
+                });
+                slidecardContainer.classList.add('loaded');
+            }
+
+            initCards();
+
+            allCards.forEach(function (el) {
+                var hammertime = new Hammer(el);
+                var accuracy = document.getElementById("accuracy");
+
+                hammertime.on('pan', function (event) {
+                    el.classList.add('moving');
+                });
+
+                hammertime.on('pan', function (event) {
+                    if (event.deltaX === 0) {
+                        return;
+                    } else {
+                        cardsDrawn += 1;
+                        correctCount += event.deltaX > 0 ? 1 : 0; 
+                        accuracy.innerHTML = `Accuracy: ${Math.round(100*correctCount/cardsDrawn)}%`;
+                    }
+                    if (event.center.x === 0 && event.center.y === 0) return;
+
+                    slidecardContainer.classList.toggle('real', event.deltaX > 0);
+                    slidecardContainer.classList.toggle('onion', event.deltaX < 0);
+
+                    var xMulti = event.deltaX * 0.03;
+                    var yMulti = event.deltaY / 80;
+                    var rotate = xMulti * yMulti;
+
+                    event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
+                });
+
+                hammertime.on('panend', function (event) {
+                    el.classList.remove('moving');
+                    slidecardContainer.classList.remove('real');
+                    slidecardContainer.classList.remove('onion');
+
+                    var moveOutWidth = document.body.clientWidth;
+                    var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+
+                    event.target.classList.toggle('removed', !keep);
+
+                    if (keep) {
+                        event.target.style.transform = '';
+                    } else {
+                        var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
+                        var toX = event.deltaX > 0 ? endX : -endX;
+                        var endY = Math.abs(event.velocityY) * moveOutWidth;
+                        var toY = event.deltaY > 0 ? endY : -endY;
+                        var xMulti = event.deltaX * 0.03;
+                        var yMulti = event.deltaY / 80;
+                        var rotate = xMulti * yMulti;
+
+                        event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
+                        initCards();
+                    }
+                });
+            });
+
+            function createButtonListener(real) {
+                return function (event) {
+                    var cards = document.querySelectorAll('.card:not(.removed)');
+                    var moveOutWidth = document.body.clientWidth * 1.5;
+
+                    if (!cards.length) return false;
+
+                    var card = cards[0];
+
+                    card.classList.add('removed');
+
+                    if (real) {
+                        card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
+                    } else {
+                        card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
+                    }
+
+                    initCards();
+
+                    event.preventDefault();
+                };
+            }
+
+            var onionListener = createButtonListener(false);
+            var realListener = createButtonListener(true);
+
+            onion.addEventListener('click', onionListener);
+            real.addEventListener('click', realListener);
+
+    </script>
+</body>
+
+
+
+
+
+
+
+   
