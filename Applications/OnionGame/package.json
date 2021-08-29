@@ -4,6 +4,7 @@
   "description": "A game where users are presented headlines from the onion and from 'not the onion' subreddit and they have to choose which one is real",
   "main": "main.js",
   "scripts": {
+    "start": "nodemon main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,5 +26,8 @@
     "mongoose": "^6.0.2",
     "passport": "^0.4.1",
     "passport-local-mongoose": "^6.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }
