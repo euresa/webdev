@@ -1,186 +1,194 @@
-*, *:before, *:after {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-  }
+        *, *:before, *:after {
+          box-sizing: border-box;
+          padding: 0;
+          margin: 0;
+        }
 
-  .game-title {
-	    align-self: center;
-    }
+        .game-title {
+          align-self: center;
+        }
 
-  body {
-    background:url("../images/news-background.gif");
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-family: sans-serif;
-  }
+        body {
+          background: url("../images/news-background.gif");
+          background-size: cover;
+          background-repeat: no-repeat;
+          font-family: sans-serif;
+        }
 
-  p {
-    padding: 0;
-    background:transparent;
-    font-size: 22px;
-  }
+        p {
+          padding: 0;
+          background: transparent;
+          font-size: 22px;
+        }
 
-  .contentBox {
-    align-content: center;
-    text-align: center;
-    margin: 32px auto;
-    width: 1000px;
-    height: auto;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid black;
-  }
+        .contentBox {
+          align-content: center;
+          text-align: center;
+          margin: 32px auto;
+          width: 1000px;
+          height: auto;
+          background-color: rgba(255, 255, 255, 0.8);
+          border: 1px solid black;
+        }
 
-  .slidecardContainer {
-    width: 95vw; /* doesn't do anything */
-    height: 70vh;
-    display: flex;
-    flex-direction: column;
-    position: relative; /*doesn't do anything */
-    opacity: 0; /*doesn't do anything */
-    transition: opacity 0.1s ease-in-out;
-    padding-top: 75px;
-  }
-  
-  .loaded.slidecardContainer {
-    opacity: 1;
-  }
-  
-  .tinder--status {
-    position: absolute; /*doesn't do anything */
-    top: 50%; /*doesn't do anything */
-    margin-top: -30px; /*doesn't do anything */
-    z-index: 2; /*doesn't do anything */
-    width: 100%; /*doesn't do anything */
-    text-align: center; /*doesn't do anything */
-    pointer-events: none; /*doesn't do anything */
-  }
-  
-  .tinder--status i {
-    font-size: 100px;
-    opacity: 0;
-    transform: scale(0.3);
-    transition: all 0.2s ease-in-out;
-    position: absolute;
-    width: 100px;
-    margin-left: -50px;
-  }
-  
-  .tinder_love .fa-heart {
-    opacity: 0.7;
-    transform: scale(1);
-  }
-  
-  .tinder_nope .fa-remove {
-    opacity: 0.7;
-    transform: scale(1);
-  }
-  
-  .cardStack {
-    flex-grow: 1;
-    text-align: center; /*doesn't do anything */
-    display: flex;
-    justify-content: center;
- /*doesn't do anything */
-    z-index: 1; /*doesn't do anything */
-  }
-  
-  .card {
-    display: inline-block;
-    width: 90vw;
-    max-width: 300px;
-    height: 100vh;
-    max-height: 350px;
-    background: #FFFFFF;
-    border-radius: 8px;
-    overflow: hidden;
-    position: absolute;
-    box-shadow: 0px 18px 53px 0px rgba(0, 0, 0, 0.3);
-    will-change: transform;
-    transition: all 0.3s ease-in-out;
-    cursor: -webkit-grab;
-    cursor: -moz-grab;
-    cursor: grab;
-  }
-  
-  .moving.card {
-    transition: none;
-    cursor: -webkit-grabbing;
-    cursor: -moz-grabbing;
-    cursor: grabbing;
-  }
-  
-  .card img {
-    max-width: 100%;
-    pointer-events: none;
-  }
-  
-  .card h3 {
-    margin-top: 32px;
-    font-size: 28px;
-    padding: 0 16px;
-    pointer-events: none;
-  }
-  
-  .card p {
-    margin-top: 24px;
-    font-size: 20px;
-    padding: 0 16px;
-    pointer-events: none;
-  }
-  
-  .buttons {
-    flex: 0 0 100px;
-    text-align: center;
-    padding-top: 0px;
-    margin-bottom: 80px;
-  }
-  
-  .buttons button {
-    border-radius: 10%;
-    line-height: 60px;
-    width: 100px;
-    border: 0;
-    background: #FFFFFF;
-    box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3);
-    display: inline-block;
-    margin: 0 15px;
-  }
-  
-  #nope {
-    color: white;
-    background-color: darkgreen;
-  }
+        .slidecardContainer {
+          width: 95vw;
+          /* doesn't do anything */
+          height: 70vh;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          /*doesn't do anything */
+          opacity: 0;
+          /*doesn't do anything */
+          transition: opacity 0.1s ease-in-out;
+          padding-top: 75px;
+        }
 
-  #love {
-    color: white;
-    background-color: darkred;
-  }
+        .loaded.slidecardContainer {
+          opacity: 1;
+        }
 
-  .buttons button:focus {
-    outline: 0;
-  }
-  
-  .buttons i {
-    font-size: 32px;
-    vertical-align: middle;
-  }
-  
-  .fa-heart {
-    color: #FFACE4;
-  }
-  
-  .fa-remove {
-    color: #CDD6DD;
-  }
+        .tinder--status {
+          position: absolute;
+          /*doesn't do anything */
+          top: 50%;
+          /*doesn't do anything */
+          margin-top: -30px;
+          /*doesn't do anything */
+          z-index: 2;
+          /*doesn't do anything */
+          width: 100%;
+          /*doesn't do anything */
+          text-align: center;
+          /*doesn't do anything */
+          pointer-events: none;
+          /*doesn't do anything */
+        }
 
-  /* tinder buttons 
-      border-radius: 50%;
-    line-height: 60px;
-    width: 60px;
-    border: 0;
-    background: #FFFFFF;
-    display: inline-block;
-    margin: 0 8px;
-    */
-  
+        .tinder--status i {
+          font-size: 100px;
+          opacity: 0;
+          transform: scale(0.3);
+          transition: all 0.2s ease-in-out;
+          position: absolute;
+          width: 100px;
+          margin-left: -50px;
+        }
+
+        .tinder_real .fa-heart {
+          opacity: 0.7;
+          transform: scale(1);
+        }
+
+        .tinder_onion .fa-remove {
+          opacity: 0.7;
+          transform: scale(1);
+        }
+
+        .cardStack {
+          flex-grow: 1;
+          text-align: center;
+          /*doesn't do anything */
+          display: flex;
+          justify-content: center;
+          /*doesn't do anything */
+          z-index: 1;
+          /*doesn't do anything */
+        }
+
+        .card {
+          display: inline-block;
+          width: 90vw;
+          max-width: 300px;
+          height: 100vh;
+          max-height: 350px;
+          background: #FFFFFF;
+          border-radius: 8px;
+          overflow: hidden;
+          position: absolute;
+          box-shadow: 0px 18px 53px 0px rgba(0, 0, 0, 0.3);
+          will-change: transform;
+          transition: all 0.3s ease-in-out;
+          cursor: -webkit-grab;
+          cursor: -moz-grab;
+          cursor: grab;
+        }
+
+        .moving.card {
+          transition: none;
+          cursor: -webkit-grabbing;
+          cursor: -moz-grabbing;
+          cursor: grabbing;
+        }
+
+        .card img {
+          max-width: 100%;
+          pointer-events: none;
+        }
+
+        .card h3 {
+          margin-top: 32px;
+          font-size: 24px;
+          padding: 0 16px;
+          pointer-events: none;
+        }
+
+        .card p {
+          margin-top: 24px;
+          font-size: 20px;
+          padding: 0 16px;
+          pointer-events: none;
+        }
+
+        .buttons {
+          flex: 0 0 100px;
+          text-align: center;
+          align-content: center;
+          top: 50%;
+          left: 50%;
+        }
+
+        .buttons button {
+          border-radius: 10%;
+          line-height: 60px;
+          width: 100px;
+          border: 0;
+          background: #FFFFFF;
+          box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3);
+          display: inline-block;
+          margin: 0 15px;
+        }
+
+        #onion {
+          color: white;
+          background-color: darkgreen;
+        }
+
+        #real {
+          color: white;
+          background-color: darkred;
+        }
+
+        .buttons button:focus {
+          outline: 0;
+        }
+
+        .buttons i {
+          font-size: 32px;
+          vertical-align: middle;
+        }
+
+        .fa-heart {
+          color: #FFACE4;
+        }
+
+        .fa-remove {
+          color: #CDD6DD;
+        }
+
+        .card.removed {
+          display: none;
+        }
+
+        
