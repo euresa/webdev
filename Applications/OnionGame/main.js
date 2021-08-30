@@ -20,8 +20,7 @@ mongoose.connect(
     { useNewUrlParser: true }
 );
 
-/* Still not sure what this does, but the other line was outdated */
-mongoose.Promise = global.Promise //mongoose.set("useCreateIndex", true);
+mongoose.Promise = global.Promise;
 
 app.set("port", process.env.PORT || 3000);
 app.set("view engine", "ejs");

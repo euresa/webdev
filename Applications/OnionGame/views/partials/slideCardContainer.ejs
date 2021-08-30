@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="css/slide.css">
+
+<div class="slideCardContainer col-md-5">
+    <div class="tinder--status">
+        <i class="fa fa-remove"></i>
+        <i class="fa fa-heart"></i>
+    </div>
+
+    <div class="cardStack" id='cardStack'></div>
+    <div class="buttons">
+        <button id="onion">ONION</button>
+        <button id="real">REAL</button>
+    </div>
+    <div class='accuracy' id="accuracy">Accuracy: 0%</div>
+</div>
+
+<!--HIDDEN DATA-->
+<span id="hiddenArticles" style='display:none;'><%= articles%></span>
+
+<!--SCRIPTS-->
+<script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+<script src="js/slide.js"></script>
