@@ -6,6 +6,7 @@
 
         .game-title {
           align-self: center;
+          height: 90%;
         }
 
         body {
@@ -25,31 +26,25 @@
           align-content: center;
           text-align: center;
           margin: 32px auto;
-          width: 1000px;
+          width: 80vw;
           height: auto;
           background-color: rgba(255, 255, 255, 0.8);
           border: 1px solid black;
         }
 
-        .slidecardContainer {
-          width: 95vw;
-          /* doesn't do anything */
+        .slideCardContainer {
           height: 70vh;
           display: flex;
           flex-direction: column;
           position: relative;
-          /*doesn't do anything */
-          opacity: 0;
-          /*doesn't do anything */
-          transition: opacity 0.1s ease-in-out;
           padding-top: 75px;
         }
 
-        .loaded.slidecardContainer {
+        .loaded.slideCardContainer {
           opacity: 1;
         }
 
-        .tinder--status {
+        ​ .tinder--status {
           position: absolute;
           /*doesn't do anything */
           top: 50%;
@@ -190,5 +185,3 @@
         .card.removed {
           display: none;
         }
-
-        

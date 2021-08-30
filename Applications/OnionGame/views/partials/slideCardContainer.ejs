@@ -1,43 +1,22 @@
-<div class="slidecardContainer col-md-5">
+<link rel="stylesheet" href="css/slide.css">
+
+<div class="slideCardContainer col-md-5">
     <div class="tinder--status">
         <i class="fa fa-remove"></i>
         <i class="fa fa-heart"></i>
     </div>
 
-    <div class="cardStack">
-        <%function shuffle(array) { %>
-            <% for (let i=array.length - 1; i> 0; i--) { %>
-                <% let j=Math.floor(Math.random() * (i + 1)); %>
-                    <% [array[i], array[j]]=[array[j], array[i]]; %>
-                        <% } %>
-                            <% return array; %>
-                                <%};%>
-                                    <% function getIndexArray(N) {var indexArray=new Array(N);for (var i=0; i <
-                                        N;i++){indexArray[i]=i;}return indexArray;} %>
-
-                                        <% let cardThemes=['arch', 'tech' , 'nature' , 'people' ]; %>
-                                            <% var N=articles.length %>
-                                                <% var shuffledIndicies=shuffle(getIndexArray(N))%>
-
-                                                    <% for(var i=0; i<N; i++){%>
-                                                        <%var currentArticle=articles[shuffledIndicies[i]];%>
-                                                            <div class="card">
-                                                                <img
-                                                                    src=<%=`https://placeimg.com/600/300/${cardThemes[i%cardThemes.length]}`%>>
-                                                                <h3>
-                                                                    <%= currentArticle.title%>
-                                                                </h3>
-                                                                <p style="display:none">
-                                                                    <%= currentArticle.real%>
-                                                                </p>
-                                                            </div>
-                                                            <%};%>
-    </div>
+    <div class="cardStack" id='cardStack'></div>
     <div class="buttons">
         <button id="onion">ONION</button>
         <button id="real">REAL</button>
     </div>
-    <div id="accuracy">Accuracy: 0%</div>
+    <div class='accuracy' id="accuracy">Accuracy: 0%</div>
 </div>
 
+<!--HIDDEN DATA-->
+<span id="hiddenArticles" style='display:none;'><%= articles%></span>
+
+<!--SCRIPTS-->
+<script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
 <script src="js/slide.js"></script>
