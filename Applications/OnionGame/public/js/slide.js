@@ -3,7 +3,7 @@
 function updateAccuracy(correct) {
   cardsDrawn += 1;
   correctCount += correct;
-  accuracy.innerHTML = `Accuracy: ${Math.round(100 * correctCount / cardsDrawn)}%`;
+  accuracy.innerHTML = Math.round(100 * correctCount / cardsDrawn);
 }
 
 function shuffle(array) {
