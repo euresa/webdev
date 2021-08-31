@@ -1,9 +1,41 @@
+<style>
+    #boston{
+        height: 70vh;
+        border: 1px solid tomato;
+        box-shadow: 0px 0px 50px 1px;
+    }
+    #myFirstChart {
+        border: 1px solid black;
+        height: 300px;
+        width: auto;
+        box-shadow: 0px 0px 5px 1px;
+    }
+</style>
+
+
 <div class='container'>
     <div class='row'>
-        <div class = "col-sm-6">
+        <%- include('./partials/gameTitle.ejs')%>
+    </div>
+    <div class='row' >
+        <div class="col-lg-5 m-4">
             <h1>Oh no!</h1>
-            <h2>Something went wrong -- and that's Sam's fault -- because the page you're looking is either not available or is broken.</h2>
+            <h2>Something went wrong -- and that's Sam's fault -- because the page you're looking is either not available or is
+                broken.</h2>
             <p>Try heading back to the home page <a href="/">here</a>.</p>
         </div>
+        <div class="col-lg-5 m-4 p-5">
+            <img id='boston' src="images/boston.png" alt="cute dog photo">
+        </div>
     </div>
+    <div class='row'>
+        <div class='col-sm-6 center mb-3 mt-3' id='maleFemaleChart'></div>
+        <div class='col-sm-6 center mb-3 mt-3' id='blackWhiteChart'></div>
+    </div>
+
 </div>
+
+<!--JSCharting library-->
+<script src="https://code.jscharting.com/2.9.0/jscharting.js"></script>
+<script src="js/chart.js"></script>
+
