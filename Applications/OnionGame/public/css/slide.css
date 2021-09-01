@@ -33,11 +33,12 @@
         }
 
         .slideCardContainer {
+          padding: 2em;
+          border: 1px solid black;
           height: 70vh;
           display: flex;
           flex-direction: column;
           position: relative;
-          padding-top: 75px;
         }
 
         .loaded.slideCardContainer {
@@ -82,22 +83,20 @@
         }
 
         .cardStack {
+          margin-bottom: 2em;
+          border: 1px solid black;
+          /* Everything below is very important */
+          position: relative;
           flex-grow: 1;
           text-align: center;
-          /*doesn't do anything */
-          display: flex;
-          justify-content: center;
-          /*doesn't do anything */
+          min-height: 400px;
+          max-height: 400px;
           z-index: 1;
-          /*doesn't do anything */
         }
 
         .card {
-          display: inline-block;
-          width: 90vw;
-          max-width: 300px;
-          height: 100vh;
-          max-height: 350px;
+          width: auto;
+          height: 100%;
           background: #FFFFFF;
           border-radius: 8px;
           overflow: hidden;
@@ -137,22 +136,21 @@
         }
 
         .buttons {
-          flex: 0 0 100px;
-          text-align: center;
+          border: 1px solid black;
+          display: flex;
           align-content: center;
-          top: 50%;
-          left: 50%;
         }
 
         .buttons button {
           border-radius: 10%;
+          min-width: 100px;
+          width: 200px;
           line-height: 60px;
-          width: 100px;
           border: 0;
           background: #FFFFFF;
           box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3);
-          display: inline-block;
-          margin: 0 15px;
+          display: flex;
+          
         }
 
         #onion {
