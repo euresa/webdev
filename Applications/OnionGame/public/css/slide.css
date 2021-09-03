@@ -6,7 +6,7 @@
 
         .game-title {
           align-self: center;
-          height: 90%;
+          height: 85%;
         }
 
         body {
@@ -18,8 +18,13 @@
 
         p {
           padding: 0;
-          background: transparent;
           font-size: 22px;
+        }
+
+        .game-description {
+          padding-top: 1em;
+          padding-left: 3em;
+          padding-right: 3em;
         }
 
         .contentBox {
@@ -29,15 +34,16 @@
           width: 80vw;
           height: auto;
           background-color: rgba(255, 255, 255, 0.8);
-          border: 1px solid black;
         }
 
         .slideCardContainer {
+          padding: 1em;
+          padding-right: 3em;
+          padding-left: 3em;
           height: 70vh;
           display: flex;
           flex-direction: column;
           position: relative;
-          padding-top: 75px;
         }
 
         .loaded.slideCardContainer {
@@ -82,22 +88,19 @@
         }
 
         .cardStack {
+          margin-bottom: 2em;
+          /* Everything below is very important */
+          position: relative;
           flex-grow: 1;
           text-align: center;
-          /*doesn't do anything */
-          display: flex;
-          justify-content: center;
-          /*doesn't do anything */
+          min-height: 400px;
+          max-height: 400px;
           z-index: 1;
-          /*doesn't do anything */
         }
 
         .card {
-          display: inline-block;
-          width: 90vw;
-          max-width: 300px;
-          height: 100vh;
-          max-height: 350px;
+          width: auto;
+          height: 100%;
           background: #FFFFFF;
           border-radius: 8px;
           overflow: hidden;
@@ -136,31 +139,34 @@
           pointer-events: none;
         }
 
+        .accuracy {
+          font-size: 18px;
+        }
+
         .buttons {
-          flex: 0 0 100px;
-          text-align: center;
-          align-content: center;
-          top: 50%;
-          left: 50%;
+          display: flex;
         }
 
         .buttons button {
-          border-radius: 10%;
+          width: 40%;
           line-height: 60px;
-          width: 100px;
           border: 0;
           background: #FFFFFF;
           box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3);
-          display: inline-block;
-          margin: 0 15px;
+          display: flex;
+          margin: 0px 5%;
         }
 
         #onion {
+          text-align: center;
+          display: inline-block;
           color: white;
           background-color: darkgreen;
         }
 
         #real {
+          text-align: center;
+          display: inline-block;
           color: white;
           background-color: darkred;
         }
@@ -184,4 +190,111 @@
 
         .card.removed {
           display: none;
+        }
+
+        @media only screen and (max-width: 991px) {
+          .cardStack {
+            min-height: 500px;
+            max-height: 500px;
+            width: 400px;
+            margin: 0 auto;
+            margin-bottom: 2em;
+          }
+          .buttons {
+            width: 400px;
+            margin: auto auto;
+          }
+          .slideCardContainer {
+            margin: 1em auto;
+            height: auto;
+            padding-right: 0;
+            padding-left: 0;
+          }
+        }
+
+        @media only screen and (max-width: 660px) {
+          .slideCardContainer {
+            margin: 0;
+            margin-bottom: 1em;
+            height: auto;
+            padding-top: 1em;
+          }
+          .contentBox {
+            width: 100vw;
+            margin-top: 1em;
+            margin-bottom: 1em;
+          }
+        }
+
+        @media only screen and (max-width: 540px) {
+          .slideCardContainer {
+            padding-left: 0;
+            padding-right: 0;
+          }
+          .contentBox {
+            margin: 0 auto;
+          }
+          .cardStack {
+            width: 80vw;
+            min-height: 450px;
+            max-height: 450px;
+            margin: 0 auto;
+            margin-bottom: 2em;
+            padding: 0;
+          }
+          .buttons {
+            width: 80vw;
+          }
+          .buttons button {
+            width: 100%;
+            line-height: 60px;
+            border: 0;
+            background: #FFFFFF;
+            box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3);
+            display: flex;
+          }
+          .buttons {
+            margin-bottom: 0;
+            padding-bottom: 0;
+          }
+        }
+
+        @media only screen and (max-width: 400px) {
+          .buttons button {
+            margin: 0;
+          }
+          #onion {
+            margin: 0 5%;
+          }
+          #real {
+            margin-right: 5%;
+          }
+          .card h3 {
+            font-size: 22px;
+          }
+        }
+
+        @media only screen and (max-width: 330px) {
+          .cardStack {
+            min-height: 350px;
+            max-height: 350px;
+          }
+          .buttons button {
+            margin: 0;
+          }
+          #onion {
+            text-align: center;
+            display: inline-block;
+            margin-right: 2.5%;
+            margin-left: 0;
+          }
+          #real {
+            text-align: center;
+            display: inline-block;
+            margin-left: 0%;
+            margin-right: 0;
+          }
+          .card h3 {
+            font-size: 20px;
+          }
         }
