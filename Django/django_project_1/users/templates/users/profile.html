@@ -1,0 +1,13 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content%}
+    <!--Accessing the current logged in user is automatic in Django-->
+    <div class='media'>
+        <img class='account-img rounded-circle' style='height: auto' src="{{user.profile.image.url}}" alt="Profile Picture">
+        <div class='media-body'>
+            <h2 class='text-primary'>Username: {{user.username}}</h2> 
+            <p class='text-secondary'>Email: {{user.email}}</p>
+        </div>
+    </div>
+    
+{% endblock content %}
