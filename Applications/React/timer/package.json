@@ -1,0 +1,19 @@
+{
+  "name": "timer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "build": "./node_modules/.bin/babel timer.jsx -o timer.js -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sam Eure",
+  "license": "ISC",
+  "babel": {
+    "presets": ["react"]
+  },
+  "devDependencies": {
+    "babel-cli": "6.9.0",
+    "babel-preset-react": "6.5.0"
+  }
+}
