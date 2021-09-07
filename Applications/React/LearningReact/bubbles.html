@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React! React! React!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id='container'></div>
+    <script type='text/babel'>
+        var Circle = React.createClass({
+            getInitialState: function(){
+                return{
+                    bgColor: this.props.bgColor,
+                    diameter: this.props.diameter
+                };
+            },
+            changeCircle: function(){
+                var red = Math.floor(Math.random() * 255);
+                var green = Math.floor(Math.random() * 255);
+                var blue = Math.floor(Math.random() * 255);
+                var newDiameter = Math.floor(Math.random() * 100);
+
+                var color = `rgba(${red}, ${green}, ${blue},${0.3})`;
+                this.setState({
+                    bgColor:  color,
+                    //diameter:  newDiameter  
+                });
+            },
+            componentDidMount: function () {
+                var randomInterval = Math.floor(Math.random()*1000)
+                setInterval(this.changeCircle, randomInterval);
+            },
+            render: function () {
+                var circleStyle = {padding: 10,margin: 20,display: 'inline-block',borderRadius: "50%",
+                    transition: "all 3s ease",
+                    WebkitTransition: "all 3s ease",
+                    width: this.state.diameter,
+                    height: this.state.diameter,
+                    backgroundColor: this.state.bgColor
+                };
+                return (
+                    <div style={circleStyle} ></div>);
+            }
+        });
+
+        var N =500;
+        var renderData = [];
+
+        for (var i = 0; i < N; i++) {
+            var red = Math.floor(Math.random() * 255);
+            var green = Math.floor(Math.random() * 255);
+            var blue = Math.floor(Math.random() * 255);
+            var d = Math.floor(Math.random()*100);
+            var color = `rgba(${red}, ${green}, ${blue},${0.0})`;
+            renderData.push(<Circle key={i+color} bgColor={color} diameter={d} />);
+        }
+
+        ReactDOM.render(<div>{renderData}</div>,document.querySelector("#container"));
+    </script>
+</body>
+</html;
