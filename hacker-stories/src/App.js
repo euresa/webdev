@@ -50,7 +50,7 @@ function List(){
     </ul>
   );
 }
-
+/*New component here*/
 function Search(){
   return(
     <div>
